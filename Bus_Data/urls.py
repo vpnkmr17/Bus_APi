@@ -19,6 +19,6 @@ from busInfo.views import searchView,searchBusno
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('search/',searchView),
-    path('busno/',searchBusno)
+    path('api/search/',searchView),
+    path('api/busno/',searchBusno)
 ]
