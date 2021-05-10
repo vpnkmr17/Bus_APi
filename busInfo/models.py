@@ -9,6 +9,8 @@ class BusNo(models.Model):
 
 class StopName(models.Model):
     stop_name=models.CharField(max_length=100)
+    latitude=models.FloatField(null=True,blank=True)
+    longitude=models.FloatField(null=True,blank=True)
 
     def __str__(self):
         return self.stop_name
