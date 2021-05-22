@@ -27,6 +27,36 @@ def distance(lat1, lon1, lat2, lon2):
     a = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p) * cos(lat2*p) * (1-cos((lon2-lon1)*p))/2
     return 12742 * asin(sqrt(a)) 
 
+#Find distance given source,destinaton and Bus NO
+@api_view(['POST'])
+def src_dest_no(requests):
+    data=requests.data or None
+    source=data['src']
+    destinaton=data['dest']
+    bus_no=data['bus_no']
+    dist=0
+
+    stops=find_stop_name(bus_no)
+    flag=0
+
+    for i in range(len(stops)-1):
+            val1=stops[i]
+            val2=stops[i+1]
+            if val1[0]==source or val1[0]==destinaton:
+                if flag==0:
+                    flag=1
+                else:
+                    break
+            if flag==1:
+                print(val1[0])
+                dist+=distance(val1[1],val1[2],val2[1],val2[2])
+    amount=dist//2
+    print(stops)
+    print(amount,dist)
+    return Response({'amount':amount})
+        
+
+
 
 # http://127.0.0.1:8000/search/
 # Data--->  {
@@ -65,7 +95,8 @@ def searchView(request):
             if flag==1:
                 # print(val1[0])
                 dist+=distance(val1[1],val1[2],val2[1],val2[2])
-        common_bus[values]+=[int(dist)]
+        
+        common_bus[values]+=[int(str(dist)[0:2])]
        
    
     print(common_bus)

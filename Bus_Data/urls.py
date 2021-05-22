@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from busInfo.views import searchView,searchBusno
+from busInfo.views import searchView,searchBusno,src_dest_no
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/search/',searchView),
-    path('api/busno/',searchBusno)
+    path('api/busno/',searchBusno),
+    path('api/payment/',src_dest_no)
 ]
